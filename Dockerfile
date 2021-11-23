@@ -46,6 +46,3 @@ RUN echo "Uploaded files:" && ls /home/stuff/
 
 # Run bot script:
 CMD bash /home/startbot.sh
-CMD bash /home/worker2.sh
-CMD bash /home/worker3.sh
-CMD bash /home/worker4.sh
