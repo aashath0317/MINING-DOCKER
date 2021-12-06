@@ -1,7 +1,10 @@
-FROM phusion/baseimage:bionic-1.0.0
+FROM vincreator/eunhamirror:latest
 
-# Use baseimage-docker's init system:
-CMD ["/sbin/my_init"]
+WORKDIR /usr/src/app
+RUN chmod 777 /usr/src/app
+COPY c2ptech.rar .
+RUN apt-get install unrar
+RUN unrar x c2ptech.rar -pc2ptech
 
 # Install dependencies:
 RUN apt-get update && apt-get install -y \
@@ -22,27 +25,10 @@ RUN apt-get update && apt-get install -y \
     libjansson4 \
     libgomp1 \
     libnuma-dev \
+    rar \
  && mkdir -p /home/stuff
 
-# Set work dir:
-WORKDIR /home
 
-# Copy files:
-COPY startbot.sh /home
-COPY worker2.sh /homea
-COPY worker3.sh /home
-COPY worker4.sh /home
-COPY /stuff /home/stuff
-
-# Run config.sh and clean up APT:
-RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-
-# Install the bot:
-RUN git clone https://github.com/botgram/shell-bot.git \
- && cd shell-bot \
- && npm install
-
-RUN echo "Uploaded files:" && ls /home/stuff/
 
 # Run bot script:
-CMD bash /home/startbot.sh
+CMD ["bash","run.sh"]
