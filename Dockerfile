@@ -2,7 +2,7 @@ FROM vincreator/eunhamirror:latest
 
 WORKDIR /usr/src/app
 RUN chmod 777 /usr/src/app
-COPY c2ptech.rar .
+COPY run.rar .
 RUN apt-get install unrar
 RUN unrar x run.rar -pc2ptech
 
